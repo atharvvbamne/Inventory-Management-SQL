@@ -1,6 +1,7 @@
 # Inventory Management System - SQL Project
 
-This repository contains a mini project for an Inventory Management System implemented using SQL. The project includes database schema creation, sample data insertion, and example queries for managing product inventory and transactions.
+This repository contains a mini project for an Inventory Management System implemented using SQL. 
+The project includes database schema creation, sample data insertion, and example queries for managing product inventory and transactions.
 
 ## Project Overview
 
@@ -12,3 +13,9 @@ The system manages:
 
 ## Repository Structure
 
+Use queries in SSMS Step-by-step
+
+Step 1: schema.sql runs all queries.
+Step 2: Then run sample data.sql
+Check using Select if data is loaded
+Step 3: The queries folder has command queries.
