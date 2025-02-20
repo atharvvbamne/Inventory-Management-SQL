@@ -1,21 +1,21 @@
-# Inventory Management System - SQL Project
+# 📦 Inventory Management System - SQL Project
 
-This repository contains a mini project for an Inventory Management System implemented using SQL. 
-The project includes database schema creation, sample data insertion, and example queries for managing product inventory and transactions.
+This repository contains a **mini project** for an **Inventory Management System** implemented using **SQL**. The project includes **database schema creation, sample data insertion**, and **example queries** for managing product inventory and transactions.
 
-## Project Overview
+## 🚀 Project Overview
+The system helps in managing:
 
-The system manages:
-- **Categories:** Product categories.
-- **Suppliers:** Supplier details.
-- **Products:** Product details including stock quantity, pricing, and reorder levels.
-- **Transactions:** Records for stock movements (stock-in and stock-out).
+- 📂 **Categories** – Product categories.
+- 🏭 **Suppliers** – Supplier details.
+- 📦 **Products** – Product details including **stock quantity, pricing, and reorder levels**.
+- 🔄 **Transactions** – Records for **stock movements** (**Stock-In 📥 & Stock-Out 📤**).
 
-## Repository Structure
+---
 
-Use queries in SSMS Step-by-step
+## 📁 Repository Structure  
+💡 Follow these **step-by-step** instructions to set up and run the queries in **SSMS**:
 
-Step 1: schema.sql runs all queries.
-Step 2: Then run sample data.sql
-Check using Select if data is loaded
-Step 3: The queries folder has command queries.
+### ✅ Setup Process  
+1️⃣ **Run the Schema Script:**  
+   ```sql
+   -- Execute schema.sql to create tables and relationships
