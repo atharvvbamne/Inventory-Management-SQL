@@ -17,7 +17,7 @@ The system helps in managing:
 
 ### ✅ Setup Process  
 1️⃣ **Run the Schema Script:**  
-   ```sql
+ 
 ## Execute schema.sql to create tables and relationships
 
 ## 📊 Database Schema
