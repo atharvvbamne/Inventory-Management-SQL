@@ -26,3 +26,7 @@ INSERT INTO Transactions (ProductID, TransactionType, Quantity, Remarks) VALUES
 (4, 'IN', 200, 'Initial stock'),
 (1, 'OUT', 5, 'Sold 5 units'),
 (4, 'OUT', 20, 'Sold 20 units');
+
+
+
+-atharv bamne
