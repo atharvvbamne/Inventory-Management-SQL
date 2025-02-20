@@ -18,4 +18,12 @@ The system helps in managing:
 ### ✅ Setup Process  
 1️⃣ **Run the Schema Script:**  
    ```sql
-   -- Execute schema.sql to create tables and relationships
+## Execute schema.sql to create tables and relationships
+
+## 📊 Database Schema
+🛠️ The system consists of the following tables:
+
+Categories 📂 – Defines product categories.
+Suppliers 🏭 – Stores supplier details.
+Products 📦 – Includes product stock, pricing, and reorder levels.
+Transactions 🔄 – Logs all stock-in and stock-out transactions.
