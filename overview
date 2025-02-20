@@ -1,0 +1,175 @@
+1. Project Overview
+Objective:
+Create a database that manages inventory for products including details about products, categories, suppliers, and stock transactions.
+
+Features:
+
+Maintain product details with pricing and stock information.
+Categorize products.
+Manage supplier information.
+Record inventory transactions (e.g., stock-in, stock-out).
+Generate reports like current stock, low inventory alerts, and transaction histories.
+2. Database Design
+Entity-Relationship (ER) Diagram
+Below is a simplified ER diagram:
+
+pgsql
+
++----------------+         +----------------+
+|   Categories   |         |   Suppliers    |
++----------------+         +----------------+
+| CategoryID (PK)|         | SupplierID (PK)|
+| Name           |         | Name           |
+| Description    |         | ContactInfo    |
++----------------+         +----------------+
+         |                         |
+         |                         |
+         |                         |
+         |                         |
+         v                         v
++--------------------------------------------------+
+|                   Products                       |
++--------------------------------------------------+
+| ProductID (PK)                                   |
+| Name                                             |
+| CategoryID (FK)                                  |
+| SupplierID (FK)                                  |
+| Price                                            |
+| StockQuantity                                    |
+| ReorderLevel                                     |
++--------------------------------------------------+
+                          |
+                          |
+                          v
+             +---------------------------+
+             |    Transactions           |
+             +---------------------------+
+             | TransactionID (PK)        |
+             | ProductID (FK)            |
+             | TransactionType         *(ENUM: 'IN', 'OUT')*
+             | Quantity                  |
+             | TransactionDate           |
+             | Remarks                   |
+             +---------------------------+
+3. SQL Implementation
+Step 1: Create Database
+sql
+Copy
+CREATE DATABASE InventoryDB;
+USE InventoryDB;
+Step 2: Create Tables
+Categories Table
+sql
+Copy
+CREATE TABLE Categories (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description TEXT
+);
+Suppliers Table
+
+CREATE TABLE Suppliers (
+    SupplierID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    ContactInfo VARCHAR(255)
+);
+Products Table
+
+CREATE TABLE Products (
+    ProductID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    CategoryID INT,
+    SupplierID INT,
+    Price DECIMAL(10,2) NOT NULL,
+    StockQuantity INT DEFAULT 0,
+    ReorderLevel INT DEFAULT 10,
+    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID),
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
+);
+Transactions Table
+
+CREATE TABLE Transactions (
+    TransactionID INT AUTO_INCREMENT PRIMARY KEY,
+    ProductID INT,
+    TransactionType ENUM('IN', 'OUT') NOT NULL,
+    Quantity INT NOT NULL,
+    TransactionDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Remarks VARCHAR(255),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+Step 3: Insert Sample Data
+Insert Categories
+
+INSERT INTO Categories (Name, Description) VALUES
+('Electronics', 'Electronic gadgets and devices'),
+('Apparel', 'Clothing and accessories'),
+('Groceries', 'Food items and beverages');
+Insert Suppliers
+
+INSERT INTO Suppliers (Name, ContactInfo) VALUES
+('Supplier A', 'contactA@example.com'),
+('Supplier B', 'contactB@example.com');
+Insert Products
+
+INSERT INTO Products (Name, CategoryID, SupplierID, Price, StockQuantity, ReorderLevel) VALUES
+('Smartphone', 1, 1, 299.99, 50, 10),
+('Laptop', 1, 2, 799.99, 30, 5),
+('Jeans', 2, 2, 49.99, 100, 20),
+('Bread', 3, 1, 2.99, 200, 50);
+Insert Transactions
+
+INSERT INTO Transactions (ProductID, TransactionType, Quantity, Remarks) VALUES
+(1, 'IN', 50, 'Initial stock'),
+(2, 'IN', 30, 'Initial stock'),
+(3, 'IN', 100, 'Initial stock'),
+(4, 'IN', 200, 'Initial stock'),
+(1, 'OUT', 5, 'Sold 5 units'),
+(4, 'OUT', 20, 'Sold 20 units');
+4. Example Queries and Reports
+a) Retrieve Current Stock for All Products
+
+SELECT 
+    p.ProductID, 
+    p.Name, 
+    p.StockQuantity, 
+    p.ReorderLevel,
+    (CASE WHEN p.StockQuantity <= p.ReorderLevel THEN 'Reorder' ELSE 'OK' END) AS StockStatus
+FROM Products p;
+b) List Products that Need Reordering
+
+SELECT 
+    ProductID, 
+    Name, 
+    StockQuantity, 
+    ReorderLevel
+FROM Products
+WHERE StockQuantity <= ReorderLevel;
+c) Transaction History for a Specific Product (e.g., ProductID = 1)
+
+SELECT 
+    t.TransactionID,
+    t.TransactionType,
+    t.Quantity,
+    t.TransactionDate,
+    t.Remarks
+FROM Transactions t
+WHERE t.ProductID = 1
+ORDER BY t.TransactionDate DESC;
+d) Update Stock Quantity After a Transaction
+This example demonstrates a simple update after an 'OUT' transaction.
+
+
+-- Deduct 5 units from ProductID = 1 after a sale:
+UPDATE Products
+SET StockQuantity = StockQuantity - 5
+WHERE ProductID = 1;
+Note: In a production system, you may implement triggers or stored procedures to automatically adjust the stock upon inserting a transaction record.
+
+5. Additional Enhancements
+Stored Procedures: Create procedures for adding transactions that automatically update the stock.
+Views: Create views to simplify reporting (e.g., current inventory view, supplier-product view).
+Triggers: Add triggers to ensure data integrity (e.g., prevent stock quantity from going negative).
+6. Conclusion
+This mini project outlines a basic inventory management system with a well-defined schema and sample queries. You can expand this project by adding user authentication, more complex business logic, and a user interface for interaction.
+
+Feel free to experiment with the SQL code and enhance the project further!
