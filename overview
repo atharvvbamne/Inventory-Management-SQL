@@ -173,3 +173,5 @@ Triggers: Add triggers to ensure data integrity (e.g., prevent stock quantity fr
 This mini project outlines a basic inventory management system with a well-defined schema and sample queries. You can expand this project by adding user authentication, more complex business logic, and a user interface for interaction.
 
 Feel free to experiment with the SQL code and enhance the project further!
+
+Happy Learning
